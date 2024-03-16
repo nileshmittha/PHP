@@ -1,6 +1,3 @@
-
-
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -49,6 +46,7 @@
   </div>
 </nav>
 
+
 <?php
 
 
@@ -56,13 +54,46 @@
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-    $username=$_POST['email1'];
+    $name=$_POST['name'];
+    $email=$_POST['email1'];
+    $adress=$_POST['adress'];
     $password=$_POST['pass1'];
+
+
+
+    $servername="localhost";
+    $uername="root";
+    $pass="qwerty";
+    $db="php";
+
+
+    $conn=mysqli_connect($servername,$uername,$pass,$db);
+
+    $sql="INSERT INTO `register`(`user_Name`,`email`,`Adress`,`pass`) values('$name','$email','$adress','$password')";
+
     
-    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <strong>Successfully!</strong> Your mail '.$username.'and password is '.$password.
-    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>';
+
+    $result=mysqli_query($conn,$sql);
+
+    if($result){
+
+      echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Successfully!</strong> Your data will added successfully
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>';
+
+
+    }
+
+    else{
+      echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Successfully!</strong> Your data will added successfully
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>'.mysqli_connect_error();
+
+
+    }
+    
 }   
 
 // }
@@ -73,14 +104,30 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
 <div class="container mt-5">
-    <h1>Please Enter Username And Password!</h1>
-<form action="loginpage.php" method="post">
+    <h1>New Doner Register</h1>
+<form action="RegisterForm.php" method="post">
+
+
+<div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" name="name" class="form-control" id="name">
+  </div>
 
   <div class="mb-3">
-    <label for="email" class="form-label">Eemail</label>
+    <label for="email" class="form-label">Email</label>
     <input type="email" name="email1" class="form-control" id="email" aria-describedby="emailHelp">
     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
   </div>
+
+
+  <div class="mb-3">
+      <label for="adress" class="form-label">Adress</label>
+      <textarea cols="10" rows="10" name="adress" class="form-control" id="adress"></textarea>
+          </div>
+          
+          
+         
+
 
 
   <div class="mb-3">
